@@ -17,6 +17,9 @@ export component AppWindow inherits Window {
     in-out property <brush> theme-accent-rest: #2196F3;
     in-out property <bool> theme-transparent: false;
 
+    // Window drag callback (handled in Rust)
+    callback window-drag(float, float);
+
     // Background rectangle (workaround for no-frame window)
     Rectangle {
         x: 0;
@@ -24,6 +27,17 @@ export component AppWindow inherits Window {
         width: 100%;
         height: 100%;
         background: theme-transparent ? transparent : theme-bg;
+        drag-area := TouchArea {
+             moved => {
+                 if (self.pressed) {
+                     window-drag(
+                         (self.mouse-x - self.pressed-x) / 1px,
+                         (self.mouse-y - self.pressed-y) / 1px
+                     );
+                 }
+             }
+         }
+
     }
 
     // Timer properties
