@@ -27,17 +27,6 @@ export component AppWindow inherits Window {
         width: 100%;
         height: 100%;
         background: theme-transparent ? transparent : theme-bg;
-        drag-area := TouchArea {
-             moved => {
-                 if (self.pressed) {
-                     window-drag(
-                         (self.mouse-x - self.pressed-x) / 1px,
-                         (self.mouse-y - self.pressed-y) / 1px
-                     );
-                 }
-             }
-         }
-
     }
 
     // Timer properties
@@ -77,10 +66,38 @@ export component AppWindow inherits Window {
         padding-bottom: 0px;
         spacing: 10px;
 
-        // Top bar with all controls: Play | Stop | Separator | Timer | Alarm
+        // Top bar with all controls: Drag | Play | Stop | Separator | Timer | Alarm
         HorizontalLayout {
             alignment: center;
             spacing: 8px;
+
+            // Drag handle for moving window
+            Rectangle {
+                width: 32px;
+                height: 32px;
+                background: transparent;
+                border-radius: 16px;
+
+                Text {
+                    text: "\u{f01be} ";  // MD arrow-all
+                    color: theme-icon;
+                    font-size: 18px;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+
+                TouchArea {
+                    mouse-cursor: move;
+                    moved => {
+                        if (self.pressed) {
+                            window-drag(
+                                (self.mouse-x - self.pressed-x) / 1px,
+                                (self.mouse-y - self.pressed-y) / 1px
+                            );
+                        }
+                    }
+                }
+            }
 
             // Play/Pause toggle button
             Rectangle {
@@ -425,4 +442,5 @@ export component AppWindow inherits Window {
         height: 6px;
         background: is-rest ? theme-accent-rest : theme-accent;  // Blue for rest, green for work
     }
+
 }

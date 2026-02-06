@@ -126,15 +126,39 @@ fn main() {
     ));
 
     // Window drag handler - allows dragging the window by clicking anywhere
+    // delta_x/delta_y from Slint are cumulative (mouse_pos - pressed_pos)
+    // We track prev delta and apply only incremental changes
     {
         let ui_weak = ui.as_weak();
+        let prev_delta = std::sync::Arc::new(std::sync::Mutex::new((0.0f32, 0.0f32)));
+
         ui.on_window_drag(move |delta_x, delta_y| {
             if let Some(ui) = ui_weak.upgrade() {
                 let window = ui.window();
                 let current = window.position();
+
+                let mut prev = prev_delta.lock().unwrap();
+
+                // Detect new drag: if current delta is smaller than previous,
+                // this is likely a new drag operation (mouse was released and pressed again)
+                let is_new_drag = delta_x.abs() < prev.0.abs() && delta_y.abs() < prev.1.abs();
+
+                if is_new_drag {
+                    // Reset for new drag
+                    *prev = (0.0, 0.0);
+                }
+
+                // Calculate the incremental change since last move
+                let inc_x = delta_x - prev.0;
+                let inc_y = delta_y - prev.1;
+
+                // Update previous delta
+                *prev = (delta_x, delta_y);
+
+                // Apply incremental movement
                 window.set_position(slint::PhysicalPosition::new(
-                    current.x + delta_x as i32,
-                    current.y + delta_y as i32,
+                    current.x + inc_x as i32,
+                    current.y + inc_y as i32,
                 ));
             }
         });
