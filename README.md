@@ -2,6 +2,8 @@
 
 A simple Pomodoro timer application built with Rust and Slint.
 
+![Screenshot](assets/screen/screenshot.png)
+
 ## Features
 
 - **Timer**: Pomodoro timer with customizable work and rest durations
