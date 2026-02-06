@@ -15,3 +15,14 @@ cargo run
 ```
 
 The timer includes work sessions, rest breaks, and plays sound notifications when phases complete.
+
+## WM hooks
+Hyperland `windows.conf`
+```conf
+windowrule = float on, match:title rsmodoro
+windowrule = pin on, match:title rsmodoro
+windowrule = no_initial_focus on, match:title rsmodoro
+windowrule = no_dim on, match:title rsmodoro
+windowrule = move (monitor_w-window_w-40) (monitor_h/2-window_h/2), match:title rsmodoro
+```
+

@@ -125,6 +125,21 @@ fn main() {
         100,        // Near top
     ));
 
+    // Window drag handler - allows dragging the window by clicking anywhere
+    {
+        let ui_weak = ui.as_weak();
+        ui.on_window_drag(move |delta_x, delta_y| {
+            if let Some(ui) = ui_weak.upgrade() {
+                let window = ui.window();
+                let current = window.position();
+                window.set_position(slint::PhysicalPosition::new(
+                    current.x + delta_x as i32,
+                    current.y + delta_y as i32,
+                ));
+            }
+        });
+    }
+
     // Load config
     let config = Config::load();
 
