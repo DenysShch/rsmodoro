@@ -176,6 +176,9 @@ fn main() {
     ui.set_theme_accent(parse_color(&config.theme.accent_color).into());
     ui.set_theme_accent_rest(parse_color(&config.theme.accent_rest_color).into());
     ui.set_theme_transparent(config.theme.transparent);
+    ui.set_theme_border_radius(config.theme.border_radius as f32);
+    ui.set_theme_window_width(config.theme.window_width as f32);
+    ui.set_theme_window_height(config.theme.window_height as f32);
 
     let timer = Arc::new(Mutex::new(Timer::new(
         config.timer_duration_minutes,

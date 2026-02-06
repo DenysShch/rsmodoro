@@ -1,7 +1,7 @@
 export component AppWindow inherits Window {
     title: "rsmodoro";
-    width: 300px;
-    height: 150px;
+    width: theme-window-width * 1px;
+    height: theme-window-height * 1px;
     background: transparent;
     no-frame: true;
     always-on-top: true;
@@ -16,6 +16,9 @@ export component AppWindow inherits Window {
     in-out property <brush> theme-accent: #4CAF50;
     in-out property <brush> theme-accent-rest: #2196F3;
     in-out property <bool> theme-transparent: false;
+    in-out property <float> theme-border-radius: 8;
+    in-out property <float> theme-window-width: 300;
+    in-out property <float> theme-window-height: 150;
 
     // Window drag callback (handled in Rust)
     callback window-drag(float, float);
@@ -76,7 +79,7 @@ export component AppWindow inherits Window {
                 width: 32px;
                 height: 32px;
                 background: transparent;
-                border-radius: 16px;
+                border-radius: theme-border-radius * 1px;
 
                 Text {
                     text: "\u{f01be} ";  // MD arrow-all
@@ -104,7 +107,7 @@ export component AppWindow inherits Window {
                 width: 32px;
                 height: 32px;
                 background: transparent;
-                border-radius: 16px;
+                border-radius: theme-border-radius * 1px;
                 play-touch := TouchArea {
                     clicked => {
                         if (active-tab == 0) {
@@ -154,7 +157,7 @@ export component AppWindow inherits Window {
                 width: 32px;
                 height: 32px;
                 background: transparent;
-                border-radius: 16px;
+                border-radius: theme-border-radius * 1px;
                 stop-touch := TouchArea {
                     clicked => {
                         if (active-tab == 0) {
@@ -186,7 +189,7 @@ export component AppWindow inherits Window {
                 width: 32px;
                 height: 32px;
                 background: transparent;
-                border-radius: 8px;
+                border-radius: theme-border-radius * 1px;
 
                 timer-tab-touch := TouchArea {
                     clicked => { active-tab = 0; }
@@ -206,7 +209,7 @@ export component AppWindow inherits Window {
                 width: 32px;
                 height: 32px;
                 background: transparent;
-                border-radius: 8px;
+                border-radius: theme-border-radius * 1px;
 
                 alarm-tab-touch := TouchArea {
                     clicked => { active-tab = 1; }
@@ -242,7 +245,7 @@ export component AppWindow inherits Window {
 
                 // Finished display - when timer completed
                 if !running && finished: Text {
-                    text: "٩(◕‿◕｡)۶";
+                    text: "󱁖 󱁖 󱁖 ";
                     font-size: 42px;
                     color: theme-accent;
                     horizontal-alignment: center;
@@ -269,7 +272,7 @@ export component AppWindow inherits Window {
                             width: 50px;
                             height: 26px;
                             background: theme-input-bg;
-                            border-radius: 4px;
+                            border-radius: theme-border-radius * 0.5 * 1px;
 
                             work-input := TextInput {
                                 text: duration;
@@ -309,7 +312,7 @@ export component AppWindow inherits Window {
                             width: 50px;
                             height: 26px;
                             background: theme-input-bg;
-                            border-radius: 4px;
+                            border-radius: theme-border-radius * 0.5 * 1px;
 
                             rest-input := TextInput {
                                 text: rest-duration;
@@ -352,7 +355,7 @@ export component AppWindow inherits Window {
 
                 // Triggered state - show "Finished!"
                 if alarm-triggered: Text {
-                    text: "٩(◕‿◕｡)۶";
+                    text: "󱁖 󱁖 󱁖 ";
                     font-size: 42px;
                     color: theme-accent;
                     horizontal-alignment: center;
@@ -378,7 +381,7 @@ export component AppWindow inherits Window {
                         width: 70px;
                         height: 50px;
                         background: theme-input-bg;
-                        border-radius: 8px;
+                        border-radius: theme-border-radius * 1px;
 
                         hours-input := TextInput {
                             text: alarm-hours < 10 ? "0\{alarm-hours}" : alarm-hours;
@@ -408,7 +411,7 @@ export component AppWindow inherits Window {
                         width: 70px;
                         height: 50px;
                         background: theme-input-bg;
-                        border-radius: 8px;
+                        border-radius: theme-border-radius * 1px;
 
                         minutes-input := TextInput {
                             text: alarm-minutes < 10 ? "0\{alarm-minutes}" : alarm-minutes;

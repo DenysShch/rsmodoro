@@ -16,6 +16,30 @@ cargo run
 
 The timer includes work sessions, rest breaks, and plays sound notifications when phases complete.
 
+## Config
+```json
+{
+  "timer_duration_minutes": 1,
+  "rest_duration_minutes": 5,
+  "alarm_hour": 21,
+  "alarm_min": 5,
+  "theme": {
+    "background_color": "#000000",
+    "input_bg_color": "#111111",
+    "text_color": "#cccccc",
+    "text_dim_color": "#777777",
+    "icon_color": "#888888",
+    "accent_color": "#4CAF50",
+    "accent_rest_color": "#2196F3",
+    "font_family": "TX02 Nerd Font",
+    "transparent": false,
+    "border_radius": 8,
+    "window_width": 300,
+    "window_height": 150
+  }
+}
+```
+
 ## WM hooks
 Hyperland `windows.conf`
 ```conf

@@ -14,6 +14,24 @@ pub struct Theme {
     pub font_family: String,
     #[serde(default)]
     pub transparent: bool,
+    #[serde(default = "default_border_radius")]
+    pub border_radius: u32,
+    #[serde(default = "default_window_width")]
+    pub window_width: u32,
+    #[serde(default = "default_window_height")]
+    pub window_height: u32,
+}
+
+fn default_border_radius() -> u32 {
+    8
+}
+
+fn default_window_width() -> u32 {
+    300
+}
+
+fn default_window_height() -> u32 {
+    150
 }
 
 impl Default for Theme {
@@ -28,6 +46,9 @@ impl Default for Theme {
             accent_rest_color: "#2196F3".to_string(),
             font_family: "TX02 Nerd Font".to_string(),
             transparent: false,
+            border_radius: default_border_radius(),
+            window_width: default_window_width(),
+            window_height: default_window_height(),
         }
     }
 }
