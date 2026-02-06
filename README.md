@@ -50,3 +50,7 @@ windowrule = no_dim on, match:title rsmodoro
 windowrule = move (monitor_w-window_w-40) (monitor_h/2-window_h/2), match:title rsmodoro
 ```
 
+## Windows build
+```shell
+cargo build --release --target x86_64-pc-windows-gnu
+```
